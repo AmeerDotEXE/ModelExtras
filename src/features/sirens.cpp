@@ -932,8 +932,8 @@ void Sirens::Init()
 		pCurrentVeh = pVeh; // Captured for hkAddPointLights()
 	};
 
-	using hkAddPointLightsHook = injector::function_hooker<injector::scoped_call, 0x6AB80F, hkAddPointLightsFunc>;
-	injector::make_static_hook<hkAddPointLightsHook>(hkAddPointLights);
+	// using hkAddPointLightsHook = injector::function_hooker<injector::scoped_call, 0x6AB80F, hkAddPointLightsFunc>;
+	// injector::make_static_hook<hkAddPointLightsHook>(hkAddPointLights);
 
 	Events::initGameEvent += []
 	{
