@@ -79,14 +79,14 @@ void Sirens::Reload(CVehicle *pVeh)
 
 void Sirens::hkAddPointLights(
 	std::function<hkAddPointLightsFunc> originalCall, 
-    uint8_t type, 
+    uint8_t& type, 
     CVector& position, 
     CVector& direction, 
-    float range, 
-    float red, float green, float blue, 
-    uint8_t fogEffect, 
-    bool bCastsShadowFromPlayerCarAndPed, 
-    CEntity* castingEntity
+    float& range, 
+    float& red, float& green, float& blue, 
+    uint8_t& fogEffect, 
+    bool& bCastsShadowFromPlayerCarAndPed, 
+    CEntity*& castingEntity
 )
 {
     if (pCurrentVeh && modelData.contains(pCurrentVeh->m_nModelIndex)) {
@@ -946,7 +946,7 @@ void Sirens::Init()
 	};
 };
 
-void Sirens::hkRegisterCorona(std::function<hkRegisterCoronaFunc> originalCall, unsigned int id, CEntity *attachTo, unsigned char red, unsigned char green, unsigned char blue, unsigned char alpha, CVector const &posn, float radius, float farClip, eCoronaType coronaType, eCoronaFlareType flaretype, bool enableReflection, bool checkObstacles, int _param_not_used, float angle, bool longDistance, float nearClip, unsigned char fadeState, float fadeSpeed, bool onlyFromBelow, bool reflectionDelay)
+void Sirens::hkRegisterCorona(std::function<hkRegisterCoronaFunc> originalCall, unsigned int &id, CEntity *&attachTo, unsigned char &red, unsigned char &green, unsigned char &blue, unsigned char &alpha, CVector const &posn, float &radius, float &farClip, eCoronaType &coronaType, eCoronaFlareType &flaretype, bool &enableReflection, bool &checkObstacles, int &_param_not_used, float &angle, bool &longDistance, float &nearClip, unsigned char &fadeState, float &fadeSpeed, bool &onlyFromBelow, bool &reflectionDelay)
 {
 	CVehicle *vehicle = (CVehicle*)attachTo;
 
