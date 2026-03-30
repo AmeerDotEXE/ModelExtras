@@ -80,8 +80,8 @@ void Sirens::Reload(CVehicle *pVeh)
 void Sirens::hkAddPointLights(
 	std::function<hkAddPointLightsFunc> originalCall, 
     uint8_t type, 
-    CVector position, 
-    CVector direction, 
+    CVector& position, 
+    CVector& direction, 
     float range, 
     float red, float green, float blue, 
     uint8_t fogEffect, 
@@ -932,8 +932,8 @@ void Sirens::Init()
 		pCurrentVeh = pVeh; // Captured for hkAddPointLights()
 	};
 
-	// using hkAddPointLightsHook = injector::function_hooker<injector::scoped_call, 0x6AB80F, hkAddPointLightsFunc>;
-	// injector::make_static_hook<hkAddPointLightsHook>(hkAddPointLights);
+	using hkAddPointLightsHook = injector::function_hooker<injector::scoped_call, 0x6AB80F, hkAddPointLightsFunc>;
+	injector::make_static_hook<hkAddPointLightsHook>(hkAddPointLights);
 
 	Events::initGameEvent += []
 	{
