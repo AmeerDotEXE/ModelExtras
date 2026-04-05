@@ -23,13 +23,17 @@ static CVehicle *pCurVeh = nullptr;
 RwSurfaceProperties &gLightSurfProps = *(RwSurfaceProperties *)0x8A645C;
 RwSurfaceProperties gLightSurfPropsOff = {0.45, 0.0, 0.0};
 
+static ThiscallEvent<AddressList<0x5532A9, H_CALL>, PRIORITY_AFTER, ArgPickN<CVehicle*, 0>, void(CVehicle*)> CVehicle__SetupRenderEvent;
+
 void ModelInfoMgr::Init()
 {
 	// Nop frame collasping
+	if (injector::GetBranchDestination(0x4C8E53).as_int() != 0x7F05A0) LOG(ERROR) << "Address conflict on 0x4C8E53";
 	patch::Nop(0x4C8E53, 5);
+	if (injector::GetBranchDestination(0x4C8F6E).as_int() != 0x7F05A0) LOG(ERROR) << "Address conflict on 0x4C8F6E";
 	patch::Nop(0x4C8F6E, 5);
 
-	patch::ReplaceFunctionCall(0x5532A9, (void *)ModelInfoMgr::SetupRender);
+	CVehicle__SetupRenderEvent += ModelInfoMgr::SetupRender;
 	patch::ReplaceFunction(0x4C8220, (void *)ModelInfoMgr::SetEditableMaterialsCB);
 
 	Events::initScriptsEvent += []()
@@ -154,7 +158,7 @@ void ModelInfoMgr::SetupRender(CVehicle *ptr)
 {
 	pCurVeh = ptr;
 	auto &data = m_VehData.Get(pCurVeh);
-	ptr->SetupRender();
+
 	for (int i = 0; i < eMaterialType::TotalMaterial; i++)
 	{
 		data.m_MatStatus[i] = false;
