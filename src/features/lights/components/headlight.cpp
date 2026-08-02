@@ -61,7 +61,7 @@ void HeadlightComponent::Process(CVehicle* pVeh, VehLightData& data) {
 void HeadlightComponent::Render(CVehicle* pControlVeh, CVehicle* pTowedVeh, VehLightData& data) {
     if (CarUtil::IsLightsForcedOff(pControlVeh)) return;
 
-    if (pControlVeh->m_pDriver == FindPlayerPed() && (pControlVeh->bLightsOn || CarUtil::IsLightsForcedOn(pControlVeh) || Util::IsNightTime())) {
+    if (pControlVeh->bLightsOn || CarUtil::IsLightsForcedOn(pControlVeh) || Util::IsNightTime()) {
         bool leftOn = pControlVeh->m_renderLights.m_bLeftFront && !Util::IsLightDamaged(pControlVeh, eLights::LIGHT_FRONT_LEFT);
         bool rightOn = pControlVeh->m_renderLights.m_bRightFront && !Util::IsLightDamaged(pControlVeh, eLights::LIGHT_FRONT_RIGHT);
         
